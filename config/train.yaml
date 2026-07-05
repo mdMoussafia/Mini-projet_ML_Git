@@ -1,0 +1,20 @@
+# Configuration d'entraînement (baseline ML)
+# - Par défaut: dataset "iris" (aucun fichier externe requis)
+# - Option: source "csv" (à déposer dans data/ puis ajuster target)
+
+data:
+  source: "iris"         # iris | csv
+  csv_path: "data/dataset.csv"
+  target: "Exited"       # utilisé seulement si source=csv
+
+split:
+  test_size: 0.2
+  random_state: 42
+  stratify: true
+
+model:
+  name: "logistic_regression"
+  max_iter: 2000
+  class_weight: null     # ex: "balanced"
+
+artifacts_dir: "artifacts"

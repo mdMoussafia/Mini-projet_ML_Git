@@ -1,0 +1,40 @@
+Cheat sheet — Exercice d'application (Git + baseline ML)
+
+0) Pré-requis
+- Créez un dépôt GitHub vide (sans README).
+- Copiez l'URL HTTPS/SSH du dépôt.
+
+1) Init + commits propres
+cd mlops-ml-project
+git init
+
+# .gitignore en premier
+git add .gitignore
+git commit -m "chore: add .gitignore for ML project"
+
+# Baseline (code/config/docs)
+git add README.md requirements.txt config/ src/ scripts/ tests/ notebooks/ .github/
+git commit -m "init: baseline ML project (train/eval/tests)"
+
+2) Ajouter remote + push
+git branch -M main
+git remote add origin <URL_DU_DEPOT>
+git push -u origin main
+
+3) Workflow branches main/dev/feature
+git checkout -b dev
+git push -u origin dev
+
+git checkout -b feature/preprocessing
+# (dans l'exercice : modifiez src/features.py)
+git add src/features.py
+git commit -m "feat: improve preprocessing pipeline"
+git push -u origin feature/preprocessing
+# -> Ouvrir PR: feature/preprocessing -> dev (review + merge)
+
+4) Tag baseline (release)
+git checkout main
+git merge dev
+git tag -a v0.1.0 -m "Baseline model ready"
+git push origin main
+git push origin --tags
